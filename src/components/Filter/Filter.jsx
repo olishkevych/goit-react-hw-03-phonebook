@@ -8,6 +8,7 @@ export const Filter = ({ onFilterInput }) => {
         className={styles.filter}
         placeholder="Search name..."
         onChange={onFilterInput}
+        name="filter"
       ></input>
     </div>
   );

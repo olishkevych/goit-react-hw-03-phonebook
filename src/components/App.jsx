@@ -33,14 +33,27 @@ export class App extends Component {
     }
   };
 
-  onFilterInput = event => {
-    this.setState({ filter: event.target.value });
-  };
-
   removeContact = id => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
+  };
+
+  componentDidMount() {
+    const strigifiedContacts = localStorage.getItem('contacts');
+    const contacts = JSON.parse(strigifiedContacts) ?? [];
+
+    this.setState({ contacts });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
+  onFilterInput = event => {
+    this.setState({ filter: event.target.value });
   };
 
   getFilteredContacts = () => {
